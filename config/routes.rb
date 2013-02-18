@@ -5,7 +5,7 @@ RailsApp::Application.routes.draw do
     resources :points
   end
 
-  #root :to => 'group#index', as: 'group'
+  root :to => 'groups#index', as: 'groups'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
