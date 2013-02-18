@@ -129,6 +129,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   less-rails-bootstrap
+  libv8 (~> 3.11.8)
   minitest
   mysql2
   rack (>= 1.4.5)

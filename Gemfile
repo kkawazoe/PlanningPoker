@@ -48,6 +48,8 @@ gem 'thor', '= 0.14.6'
 gem 'minitest'
 
 # Bootstrap
+gem 'libv8', '~> 3.11.8'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails-bootstrap'
 gem 'therubyracer'
+
