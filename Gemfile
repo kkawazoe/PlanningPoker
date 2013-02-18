@@ -46,3 +46,8 @@ gem 'thor', '= 0.14.6'
 
 # This needs to be installed so we can run Rails console on OpenShift directly
 gem 'minitest'
+
+# Bootstrap
+gem 'twitter-bootstrap-rails'
+gem 'less-rails-bootstrap'
+gem 'therubyracer'

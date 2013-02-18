@@ -1,4 +1,12 @@
 RailsApp::Application.routes.draw do
+ 
+  resources :groups do
+   resources :members
+    resources :points
+  end
+
+  #root :to => 'group#index', as: 'group'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
