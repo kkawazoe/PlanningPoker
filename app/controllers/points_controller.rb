@@ -25,6 +25,14 @@ class PointsController < ApplicationController
   # GET /points/new.json
   def new
     @point = Point.new
+    @point.group_id = params[:group_id]
+    @point.member_id = params[:member_id]
+
+    @group = Group.new()
+    @group.id = @point.group_id
+
+    @member = Member.new()
+    @member.id = @point.member_id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +52,7 @@ class PointsController < ApplicationController
 
     respond_to do |format|
       if @point.save
-        format.html { redirect_to @point, notice: 'Point was successfully created.' }
+        format.html { redirect_to group_member_point_url(@point.group_id, @point.member_id, @point.id), notice: 'Point was successfully created.' }
         format.json { render json: @point, status: :created, location: @point }
       else
         format.html { render action: "new" }
@@ -76,7 +84,14 @@ class PointsController < ApplicationController
     @point.destroy
 
     respond_to do |format|
-      format.html { redirect_to points_url }
+      format.html { redirect_to new_group_member_point_url(@point) }
+      format.json { head :no_content }
+    end
+  end
+
+  def check
+    respond_to do |format|
+      format.html { redirect_to group_points(@point) }
       format.json { head :no_content }
     end
   end

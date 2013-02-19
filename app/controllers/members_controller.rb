@@ -24,8 +24,10 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
-    @group = params[:group]
+    @group = Group.new
+    @group.id = params[:group_id]
     @member = Member.new
+    # @member.group_id = @group.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,7 +47,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
+        format.html { redirect_to new_group_member_point_url(@member.group_id,@member.id), notice: 'Member was successfully created.' }
         format.json { render json: @member, status: :created, location: @member }
       else
         format.html { render action: "new" }

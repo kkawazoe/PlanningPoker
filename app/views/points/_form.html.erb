@@ -1,16 +1,7 @@
-<%= form_for @point, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :group_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :group_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :member_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :member_id, :class => 'number_field' %>
-    </div>
-  </div>
+<%= form_for [@group,@member,@point], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.hidden_field :group_id,  :value => @point.group_id %>
+  <%= f.hidden_field :member_id, :value => @point.member_id %>
+
   <div class="control-group">
     <%= f.label :value, :class => 'control-label' %>
     <div class="controls">
@@ -20,7 +11,5 @@
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                points_path, :class => 'btn' %>
   </div>
 <% end %>

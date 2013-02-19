@@ -1,8 +1,15 @@
 RailsApp::Application.routes.draw do
  
   resources :groups do
-   resources :members
-    resources :points
+    resources :members do
+      resources :points
+    end
+
+    resource :points do
+      member do
+        get 'check'
+      end
+    end
   end
 
   root :to => 'groups#index', as: 'groups'
