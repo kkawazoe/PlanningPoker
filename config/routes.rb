@@ -2,12 +2,12 @@ RailsApp::Application.routes.draw do
  
   resources :groups do
     resources :members do
-      resources :points
+      resources :points, :only => [:new, :show, :create, :destroy]
     end
 
-    resource :points do
+    resources :points, :except => [:new, :show, :edit, :create, :update, :destroy] do
       member do
-        get 'check'
+        get 'check_results'
       end
     end
   end
