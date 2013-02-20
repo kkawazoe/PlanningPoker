@@ -41,6 +41,10 @@ class PointsController < ApplicationController
     @group = Group.new()
     @group.id = @point.group_id
 
+    member = session[:member]
+    points = Point.find_all_by_member_id(member.id )
+    points.each {|point| point.delete} 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @point }
@@ -55,22 +59,6 @@ class PointsController < ApplicationController
   # POST /points
   # POST /points.json
   def create
-    member = session[:member]
-    points = Point.find_all_by_member_id(member.id )
-
-   puts "削除件数"
-    all_points = Point.all
-    all_points.each { |point| p point }
-
-    puts "削除件数"
-    p points.size
-
-    puts "member.id"
-    p member.id
-
-    points.each {|point| point.delete} 
-
-
     @point = Point.new(params[:point])
 
     respond_to do |format|
@@ -108,7 +96,7 @@ class PointsController < ApplicationController
   # DELETE /points/1.json
   def destroy
     @point = Point.find(params[:id])
-    @point.destroy
+    @point.delete
 
     respond_to do |format|
       format.html { redirect_to new_group_point_url(@point) }
@@ -118,10 +106,16 @@ class PointsController < ApplicationController
 
   def check_results
     @points = Point.find_all_by_group_id(params[:group_id])
-    @member = Member.find_all_by_group_id(params[:group_id])
+    @members = Member.find_all_by_group_id(params[:group_id])
+
+    puts "比較"
+    p @points
+    p @member
+    members = Member.all
+    p members
 
     respond_to do |format|
-      if @points.size == @member.size
+      if @points.size == @members.size
         format.html { redirect_to group_points_url(params[:group_id])}
       else
         format.html { redirect_to group_point_url(params[:group_id],params[:id]), notice: '他のメンバが見積り中です。 しばらくお待ちください。'}
