@@ -18,3 +18,8 @@
     <% end %>
   </tbody>
 </table>
+
+<div style="color:red"> <h2>平均：<%= @avg%>pt</h2></div>
+
+<%= link_to t('.next', :default => t("helpers.links.next")),
+            new_group_point_path(session[:member].group_id), :class => 'btn' %>

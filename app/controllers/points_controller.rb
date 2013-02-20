@@ -5,8 +5,14 @@ class PointsController < ApplicationController
   # GET /points.json
   def index
     @points = Point.find(:all, :conditions=>[ "group_id=?", params[:group_id]], :order => 'value desc')
+    sum = 0.00
+    @points.each {|point| sum += point.value} 
 
-    @points 
+    p sum
+
+    @avg = sum / @points.size
+
+    p @avg
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,10 +55,28 @@ class PointsController < ApplicationController
   # POST /points
   # POST /points.json
   def create
+    member = session[:member]
+    points = Point.find_all_by_member_id(member.id )
+
+   puts "削除件数"
+    all_points = Point.all
+    all_points.each { |point| p point }
+
+    puts "削除件数"
+    p points.size
+
+    puts "member.id"
+    p member.id
+
+    points.each {|point| point.delete} 
+
+
     @point = Point.new(params[:point])
 
     respond_to do |format|
       if @point.save
+        session[:point] = @point
+
         format.html { redirect_to group_point_url(@point.group_id, @point.id), notice: 'Point was successfully created.' }
         format.json { render json: @point, status: :created, location: @point }
       else
@@ -69,6 +93,8 @@ class PointsController < ApplicationController
 
     respond_to do |format|
       if @point.update_attributes(params[:point])
+        session[:point] = @point
+
         format.html { redirect_to @point, notice: 'Point was successfully updated.' }
         format.json { head :no_content }
       else
