@@ -1,4 +1,4 @@
-<%= form_for [@group,@member,@point], :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for [@group,@point], :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.hidden_field :group_id,  :value => @point.group_id %>
   <%= f.hidden_field :member_id, :value => @point.member_id %>
 

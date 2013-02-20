@@ -1,18 +1,16 @@
 RailsApp::Application.routes.draw do
  
   resources :groups do
-    resources :members do
-      resources :points, :only => [:new, :show, :create, :destroy]
-    end
-
-    resources :points, :except => [:new, :show, :edit, :create, :update, :destroy] do
+    resources :points do
       member do
         get 'check_results'
       end
     end
+
+    resources :members
   end
 
-  root :to => 'groups#index', as: 'groups'
+  # root :to => 'groups#index', as: 'groups'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

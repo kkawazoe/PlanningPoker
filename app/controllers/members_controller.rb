@@ -14,6 +14,7 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     @member = Member.find(params[:id])
+    session[:member] = @member
 
     respond_to do |format|
       format.html # show.html.erb
@@ -47,7 +48,8 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to new_group_member_point_url(@member.group_id,@member.id), notice: 'Member was successfully created.' }
+        session[:member] = @member
+        format.html { redirect_to new_group_point_url(@member.group_id), notice: 'Member was successfully created.' }
         format.json { render json: @member, status: :created, location: @member }
       else
         format.html { render action: "new" }
@@ -60,6 +62,7 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find(params[:id])
+    session[:member] = @member
 
     respond_to do |format|
       if @member.update_attributes(params[:member])

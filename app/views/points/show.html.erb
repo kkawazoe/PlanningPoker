@@ -10,11 +10,11 @@
 
 <div class="form-actions">
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              group_member_point_path(@point),
+              group_point_path(@point),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
-  <%= link_to t('.check', :default => t("helpers.links.check")),
-              check_group_points(@point.group_id), :class => 'btn' %>
+  <%= link_to t('.check_results', :default => t("helpers.links.check the results")),
+              check_results_group_point_path(@point.group_id), :class => 'btn' %>
 
 </div>

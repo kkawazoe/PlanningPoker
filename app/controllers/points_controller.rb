@@ -1,8 +1,12 @@
+# encoding: utf-8
+
 class PointsController < ApplicationController
   # GET /points
   # GET /points.json
   def index
-    @points = Point.all
+    @points = Point.find(:all, :conditions=>[ "group_id=?", params[:group_id]], :order => 'value desc')
+
+    @points 
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,13 +30,10 @@ class PointsController < ApplicationController
   def new
     @point = Point.new
     @point.group_id = params[:group_id]
-    @point.member_id = params[:member_id]
+    @point.member_id = session[:member].id
 
     @group = Group.new()
     @group.id = @point.group_id
-
-    @member = Member.new()
-    @member.id = @point.member_id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,7 +53,7 @@ class PointsController < ApplicationController
 
     respond_to do |format|
       if @point.save
-        format.html { redirect_to group_member_point_url(@point.group_id, @point.member_id, @point.id), notice: 'Point was successfully created.' }
+        format.html { redirect_to group_point_url(@point.group_id, @point.id), notice: 'Point was successfully created.' }
         format.json { render json: @point, status: :created, location: @point }
       else
         format.html { render action: "new" }
@@ -84,15 +85,21 @@ class PointsController < ApplicationController
     @point.destroy
 
     respond_to do |format|
-      format.html { redirect_to new_group_member_point_url(@point) }
+      format.html { redirect_to new_group_point_url(@point) }
       format.json { head :no_content }
     end
   end
 
-  def check
+  def check_results
+    @points = Point.find_all_by_group_id(params[:group_id])
+    @member = Member.find_all_by_group_id(params[:group_id])
+
     respond_to do |format|
-      format.html { redirect_to group_points(@point) }
-      format.json { head :no_content }
+      if @points.size == @member.size
+        format.html { redirect_to group_points_url(params[:group_id])}
+      else
+        format.html { redirect_to group_point_url(params[:group_id],params[:id]), notice: '他のメンバが見積り中です。 しばらくお待ちください。'}
+      end
     end
   end
 end

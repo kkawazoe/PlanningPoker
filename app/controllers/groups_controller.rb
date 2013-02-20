@@ -42,6 +42,10 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params[:group])
 
+    puts"************"
+    p @group
+    puts"************"
+
     respond_to do |format|
       if @group.save
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
