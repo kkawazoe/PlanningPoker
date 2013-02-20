@@ -74,6 +74,16 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
-
+<script type="text/javascript">
+<!--
+  $(document).ready(function(){
+    setTimeout("reflesh()", 2000);
+  });
+  
+  function reflesh() {
+    $("a#check_results")[0].click();
+  }
+// -->
+</script>
   </body>
 </html>

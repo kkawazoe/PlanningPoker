@@ -7,9 +7,8 @@
   <dt><strong><%= model_class.human_attribute_name(:value) %>:</strong></dt>
   <dd><%= @point.value %></dd>
 </dl>
-
 <div class="form-actions">
-  <%= link_to t('.check_results', :default => t("helpers.links.check the results")),
-              check_results_group_point_path(@point.group_id), :class => 'btn' %>
+  <%= link_to t('check_results', :default => t("helpers.links.check the results")),
+              check_results_group_point_path(@point.group_id), :class => 'btn', :id  => 'check_results'%>
 
 </div>
