@@ -2,10 +2,16 @@
   <%= f.hidden_field :group_id,  :value => @point.group_id %>
   <%= f.hidden_field :member_id, :value => @point.member_id %>
 
+  <p> ポイントを選択してください。</p>
+
   <div class="control-group">
-    <%= f.label :value, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :value, :class => 'number_field' %>
+      <!-- <%= f.number_field :value, :class => 'number_field' %> -->
+      1<%= f.radio_button :value, 1, {:checked => true} %>&nbsp;
+      2<%= f.radio_button :value, 2, {:checked => false} %>&nbsp;
+      3<%= f.radio_button :value, 3, {:checked => false} %>&nbsp;
+      5<%= f.radio_button :value, 5, {:checked => false} %>&nbsp;
+      8<%= f.radio_button :value, 8, {:checked => false} %>&nbsp;
     </div>
   </div>
 

@@ -65,7 +65,7 @@ class PointsController < ApplicationController
       if @point.save
         session[:point] = @point
 
-        format.html { redirect_to group_point_url(@point.group_id, @point.id), notice: 'Point was successfully created.' }
+        format.html { redirect_to group_point_url(@point.group_id, @point.id), notice: '登録しました。 他のメンバが見積り中です。しばらくお待ちください。'}
         format.json { render json: @point, status: :created, location: @point }
       else
         format.html { render action: "new" }
@@ -118,7 +118,7 @@ class PointsController < ApplicationController
       if @points.size == @members.size
         format.html { redirect_to group_points_url(params[:group_id])}
       else
-        format.html { redirect_to group_point_url(params[:group_id],params[:id]), notice: '他のメンバが見積り中です。 しばらくお待ちください。'}
+        format.html { redirect_to group_point_url(params[:group_id],params[:id]), notice: '登録しました。 他のメンバが見積り中です。しばらくお待ちください。'}
       end
     end
   end
