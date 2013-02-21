@@ -6,7 +6,14 @@ class PointsController < ApplicationController
   def index
     @points = Point.find(:all, :conditions=>[ "group_id=?", params[:group_id]], :order => 'value desc')
     sum = 0.00
-    @points.each {|point| sum += point.value} 
+    tmpPoints = @points[0];
+    @trueMsg = "うぉぉぉぉ　全員そろったぞーー！！"
+    @points.each {|point| sum += point.value}
+    @points.each do |point|
+      if point.value != tmpPoints
+        @trueMsg = nil    
+      end
+    end
 
     p sum
 
