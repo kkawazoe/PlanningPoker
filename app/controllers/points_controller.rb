@@ -122,11 +122,7 @@ class PointsController < ApplicationController
     p members
 
     respond_to do |format|
-      if @points.size == @members.size
         format.html { redirect_to group_points_url(params[:group_id])}
-      else
-        format.html { redirect_to group_point_url(params[:group_id],params[:id]), notice: '登録しました。 他のメンバが見積り中です。しばらくお待ちください。'}
-      end
     end
   end
 end
